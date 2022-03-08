@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <title>Payment</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <form id="getTokenForm">
+      <p>カード番号：<input type="text" value="" name="no" id="no" /></p>
+      <p>
+        カード有効期限：<input
+          type="text"
+          value=""
+          name="expiry_date"
+          id="expiry_date"
+        />
+      </p>
+      <p>
+        セキュリティコード：<input type="text" value="" name="code" id="code" />
+      </p>
+      <p>名義人：<input type="text" value="" name="name" id="name" /></p>
+      <p>
+        <input type="button" id="submit" value="購入する" />
+      </p>
+      <input type="hidden" value="" id="token" />
+    </form>
+    <form id="purchaseForm" action="(加盟店様URL)" method="post"></form>
+    <div id="res"></div>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+  </body>
+</html>
