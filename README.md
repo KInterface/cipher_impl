@@ -31,5 +31,15 @@ This is a prototype implementation and we still do not send back any token to th
 We are planning to cooperate with our other token calculation microservice,
 thus this repository already satisfied our aim to try out implementing payment-flow despite incompleteness.
 
-
 ![Payment - Google Chrome 05 03 2022 23_43_05](https://user-images.githubusercontent.com/100127291/156889072-9b4d43d8-5807-4ac8-a737-4920cde54a03.png)
+
+### launch server
+
+```shell
+yarn
+yarn dev
+pushd back
+make run&
+popd
+
+```

@@ -47,7 +47,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		w.WriteHeader(http.StatusOK)
 		pk := model.KeyExchange()
-		fmt.Println(pk)
 		w.Write(pk)
 		return
 	} else if r.Method == "POST" {
@@ -63,14 +62,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		e := model.EncryptedDataBuilder{}
 
 		n, m, k, h := b.Nonce, b.Encrypted, b.SharedKey, b.Hash
-		fmt.Println(h)
-		x, y := model.A(k)
+		x, y := model.UnmarshalSharedPubKey(k)
 		pb := crypto.PublicKey(ecdh.Point{X: x, Y: y})
 		s := model.Compute(pb)
-		fmt.Println("here")
 
 		_, ke, _ := model.CheckHash(s, h)
-		fmt.Println(h, []byte(h))
 		c := e.Nonce(n).Message(m).Key(ke).Build()
 		txt, err := c.Decrypt()
 		if err != nil {
@@ -80,7 +76,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(txt)
 		w.Write(r)
 		return
 	}

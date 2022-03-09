@@ -10,7 +10,7 @@ pub fn enc_xchacha20(msg: &str, key: &[u8; 32]) -> (Vec<u8>, Vec<u8>) {
 }
 
 pub fn enc_secp256r1(pk_bytes_slice: &[u8]) -> Result<(Output, String, PublicKey)> {
-    let (shared_secret, pub_key) = secp256r1::calcurate_shared_secret(&pk_bytes_slice);
+    let (shared_secret, pub_key) = secp256r1::calcurate_shared_secret(&pk_bytes_slice)?;
     let (private_key, hash) = hash::generate(shared_secret.as_bytes())?;
     Ok((private_key, hash, pub_key))
 }

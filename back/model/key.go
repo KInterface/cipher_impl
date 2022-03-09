@@ -58,6 +58,6 @@ func Compute(pk crypto.PublicKey) []byte {
 	return curve.ComputeSecret(pv, pk)
 }
 
-func A(k []byte) (x, y *big.Int) {
+func UnmarshalSharedPubKey(k []byte) (x, y *big.Int) {
 	return elliptic.Unmarshal(p256, k)
 }

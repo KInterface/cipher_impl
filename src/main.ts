@@ -25,7 +25,6 @@ export const fetchToken = async () => {
     .map(([key, value]) => `${key}:${value}`)
     .join("|");
   const encoded = encode(card, new Uint8Array(PublicKey)) as Encoded;
-  console.log(encoded);
   const res = await post<TokenResponse, any, { Data: string } & Encoded>({
     Data: card,
     ...encoded,
@@ -33,6 +32,10 @@ export const fetchToken = async () => {
   if (res) {
     const tokenInput = document.getElementById("token") as HTMLInputElement;
     tokenInput.value = res.Token;
+    const resInput = document.getElementById("res") as HTMLInputElement;
+    resInput.innerHTML += `<p>Server received following encrypted data: ${res.Encoded}</p>`;
+    resInput.innerHTML += `<p>Server decrypt and get following data: ${res.Decoded}</p>`;
+    resInput.innerHTML += `<p>Token: ${res.Token}</p>`;
   }
 };
 
@@ -41,11 +44,7 @@ window.onload = async () => {
   submit && submit.addEventListener("click", fetchToken);
   const pubKey = await get<ArrayBuffer, any>("", "arraybuffer");
   if (pubKey) {
-    console.log(pubKey);
-    console.log(new Uint8Array(pubKey));
-    init().then(() => {
-      console.log(encode("", new Uint8Array(pubKey)));
-    });
+    init();
     PublicKey = pubKey;
   }
 };
